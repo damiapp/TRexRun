@@ -7,15 +7,43 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    // Start is called before the first frame update
+    public TextMeshProUGUI HighScoreText;
+    public TextMeshProUGUI HighScoreLabel;
+    public GameObject Player;
+
+    private int score;
+    public int scoreIncreaseRate;
+    public float speedIncrease;
+
     void Start()
     {
-        
+        score = 0;
+        UpdateScoreText();
+        StartCoroutine(IncreaseScore());
+    }
+    IEnumerator IncreaseScore()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.05f/speedIncrease);
+            score += scoreIncreaseRate;
+            UpdateScoreText();
+        }
+    }
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        UpdateScoreText();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateScoreText()
     {
-        
+        scoreText.text = score.ToString().PadLeft(5,'0');
     }
+
+    private void Update()
+    {
+        //if(Player.GetComponent<>)
+    }
+
 }
