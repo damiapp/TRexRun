@@ -457,7 +457,8 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 5263679080097061211, guid: 683324f095a79264b9e0eaf367fb76ae, type: 3}
   - {fileID: 6364107576342149238, guid: 80b98ab951553a24c90f641a23f567b1, type: 3}
-  poolSize: 10
+  spawnEnemies: 1
+  poolSize: 4
   minSpawnDelay: 3
   maxSpawnDelay: 6
 --- !u!4 &334709951
@@ -1166,7 +1167,7 @@ MonoBehaviour:
   HighScoreLabel: {fileID: 329903875}
   Player: {fileID: 1450199143}
   scoreIncreaseRate: 1
-  speedIncrease: 0
+  speedIncrease: 1
 --- !u!4 &963611253
 Transform:
   m_ObjectHideFlags: 0
@@ -1707,7 +1708,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1450199145}
+  - component: {fileID: 1450199150}
   - component: {fileID: 1450199144}
   - component: {fileID: 1450199146}
   - component: {fileID: 1450199147}
@@ -1771,22 +1772,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1450199145
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450199143}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.943, y: -1.07, z: 0}
-  m_LocalScale: {x: 2.37, y: 2.44, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_SpriteSortPoint: 1
 --- !u!61 &1450199146
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1800,7 +1786,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.00168854}
+  m_Offset: {x: 0, y: -0.0008462444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1811,7 +1797,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44, y: 0.4666229}
+  m_Size: {x: 0.44, y: 0.47169244}
   m_EdgeRadius: 0
 --- !u!50 &1450199147
 Rigidbody2D:
@@ -1821,14 +1807,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450199143}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.55
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1868,10 +1854,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIsAlive: 0
-  jumpHeight: 2
-  jumpDuration: 1
-  jumpDelay: 0
-  fallMultiplier: 2
+  jumpForce: 4.4
+--- !u!4 &1450199150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450199143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.998, y: -1.091, z: 0}
+  m_LocalScale: {x: 2.37, y: 2.44, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1659502130
 GameObject:
   m_ObjectHideFlags: 0

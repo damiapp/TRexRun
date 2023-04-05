@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
+    public bool spawnEnemies;
     public int poolSize;
     public float minSpawnDelay, maxSpawnDelay;
 
@@ -14,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         LoadEnemys();
-        SpawnEnemy();
+        StartCoroutine(SpawnEnemy());
     }
 
     private void LoadEnemys()
@@ -32,24 +33,22 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy()
+    IEnumerator SpawnEnemy()
     {
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
-        GameObject enemy = enemyPools[randomIndex].Find(e => !e.activeSelf);
-        if (enemy == null)
-        {
-            enemy = Instantiate(enemyPrefabs[randomIndex], transform);
-            enemyPools[randomIndex].Add(enemy);
+        while(spawnEnemies == true){
+            int randomIndex = Random.Range(0, enemyPrefabs.Length);
+            GameObject enemy = enemyPools[randomIndex].Find(e => !e.activeSelf);
+            if (enemy == null)
+            {
+                enemy = Instantiate(enemyPrefabs[randomIndex], transform);
+                enemyPools[randomIndex].Add(enemy);
+            }
+            enemy.transform.position = GetComponent<Transform>().transform.position;
+            enemy.SetActive(true);
+
+            float randomDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            yield return new WaitForSeconds(randomDelay);
         }
-        enemy.transform.position = GetComponent<Transform>().transform.position;
-        enemy.SetActive(true);
-
-        StartCoroutine(SpawnDelay());
     }
 
-    private IEnumerator SpawnDelay()
-    {
-        float randomDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
-        yield return new WaitForSeconds(randomDelay);
-    }
 }

@@ -41,9 +41,4 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString().PadLeft(5,'0');
     }
 
-    private void Update()
-    {
-        //if(Player.GetComponent<>)
-    }
-
 }

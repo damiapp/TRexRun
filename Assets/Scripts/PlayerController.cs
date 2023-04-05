@@ -5,97 +5,103 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public bool playerIsAlive;
-    public float jumpHeight;
-    public float jumpDuration;
-    public float jumpDelay;
-    public float fallMultiplier;
-    public float duckHight;
+    public float jumpForce;
 
-    private float originalColliderHeight;
-    private Rigidbody2D rigidbody;
-    private BoxCollider2D boxCollider;
-    private Animator animator;
     private bool grounded;
-    private bool isJumping = false;
-    private float jumpStartTime = 0f;
-    private Vector2 jumpStartPosition;
+    private bool ducking;
+    private bool jumping;
+    private float originalColliderHeight;
+    private Animator animator;
+    private Rigidbody2D myBody;
+    private BoxCollider2D boxCollider;
+
 
     private void Start()
     {
+        playerIsAlive = true;   
         grounded = true;
-        playerIsAlive = true;
+        jumping = false;
+        ducking = false;
+        myBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderHeight = boxCollider.size.y;
-        rigidbody = GetComponent<Rigidbody2D>();    
         animator = GetComponent<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            animator.SetBool("IsDead", true);
+            //Dead sound
             playerIsAlive = false;
         }
-        else if (collision.CompareTag("Ground"))
+        if(collision.CompareTag("Ground"))
         {
-            animator.SetBool("IsJump", false);
+            Debug.Log("Ground");
             grounded = true;
+            jumping = false;
         }
     }
 
     private void Update()
     {
-        Jump();
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && grounded && !ducking) {
+            jumping = true;
+            grounded = false;
+            //Jump sound
+        }
+        ducking = Input.GetKey(KeyCode.DownArrow);
+        UpdateAnimations();   
+    }
+
+    private void FixedUpdate() {
+        if (jumping) {
+            Jump();
+        }
+        if (ducking && !grounded) {
+            Fall();
+        }
+        if(ducking && grounded){
             Duck();
-        else if (Input.GetKeyUp(KeyCode.DownArrow)) 
-        { 
-            animator.SetBool("IsDuck", false);
-            boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight);
+        }
+        if(!ducking && grounded){
+            Normal();
+        }
+        if(!playerIsAlive){
+            Dead();
         }
     }
+
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
-        {
-            isJumping = true;
-            jumpStartTime = Time.time + jumpDelay;
-            jumpStartPosition = transform.position;
-        }
+        myBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        jumping = false;
+    }
 
-        if (isJumping)
-        {
-            animator.SetBool("IsJump", true);
-            float jumpProgress = (Time.time - jumpStartTime) / jumpDuration;
-
-            if (jumpProgress < 1f)
-            {
-                float jumpHeightProgress = Mathf.Sin(jumpProgress * Mathf.PI);
-                Vector2 jumpVector = new Vector2(0f, jumpHeight * jumpHeightProgress);
-
-                if (Input.GetKey(KeyCode.DownArrow) && jumpVector.y < 0f)
-                {
-                    jumpVector *= fallMultiplier;
-                }
-
-                rigidbody.MovePosition(jumpStartPosition + jumpVector);
-            }
-            else
-            {
-                isJumping = false;
-                animator.SetBool("IsJump", false);
-            }
-        }
+    private void Fall()
+    {
+        myBody.AddForce(new Vector2(0f, -(jumpForce / 3)), ForceMode2D.Impulse);
+        jumping = false;
     }
     private void Duck()
-    {
-        if (!isJumping)
-        {
-            boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight / 2f);
-
-            transform.Translate(Vector2.down*duckHight);
-            animator.SetBool("IsDuck", true);
-        }
+    {  
+        boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight / 2f);
     }
-}
+    private void Normal()
+    {  
+        boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight);
+    }
+
+    private void Dead()
+    {  
+        //Death impl...
+    }
+
+    private void UpdateAnimations()
+    {
+        animator.SetBool("IsJump", !grounded && jumping);
+        animator.SetBool("IsRun", grounded && playerIsAlive && !ducking);
+        animator.SetBool("IsDuck",grounded && ducking);
+        animator.SetBool("IsDead", !playerIsAlive);
+    }
+}   
