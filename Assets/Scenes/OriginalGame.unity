@@ -307,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &329903874
 RectTransform:
   m_ObjectHideFlags: 0
@@ -357,8 +357,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281677109
-  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    rgba: 3487029
+  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1166,6 +1166,7 @@ MonoBehaviour:
   HighScoreText: {fileID: 1267377984}
   HighScoreLabel: {fileID: 329903875}
   Player: {fileID: 1450199143}
+  SpawnManager: {fileID: 334709949}
   scoreIncreaseRate: 1
   speedIncrease: 1
 --- !u!4 &963611253
@@ -1284,7 +1285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1267377983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1334,8 +1335,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281677109
-  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    rgba: 3487029
+  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

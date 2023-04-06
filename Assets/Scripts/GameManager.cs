@@ -10,8 +10,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI HighScoreText;
     public TextMeshProUGUI HighScoreLabel;
     public GameObject Player;
-
+    public GameObject SpawnManager;
+    
     private int score;
+    private int highScore;
     public int scoreIncreaseRate;
     public float speedIncrease;
 
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
         UpdateScoreText();
         StartCoroutine(IncreaseScore());
     }
+
     IEnumerator IncreaseScore()
     {
         while (true)
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
             UpdateScoreText();
         }
     }
+
     public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
@@ -41,4 +45,32 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString().PadLeft(5,'0');
     }
 
+    void Update()
+    {
+        Death();
+        Replay();
+    }
+
+    private void Death(){ 
+        if(!Player.GetComponent<PlayerController>().playerIsAlive)
+        {
+            UpdateMaxScore();  
+            Time.timeScale = 0f;    
+        }
+    }
+
+    private void UpdateMaxScore()
+    {
+        int.TryParse(HighScoreText.text,out highScore);
+        if(score>highScore){
+            highScore = score;
+        }
+        HighScoreText.text = scoreText.text.PadLeft(5,'0');
+        HighScoreLabel.alpha = 255;
+        HighScoreText.alpha = 255;
+    }
+
+    private void Replay(){
+
+    }
 }

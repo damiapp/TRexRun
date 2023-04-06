@@ -43,7 +43,13 @@ public class SpawnManager : MonoBehaviour
                 enemy = Instantiate(enemyPrefabs[randomIndex], transform);
                 enemyPools[randomIndex].Add(enemy);
             }
+            
             enemy.transform.position = GetComponent<Transform>().transform.position;
+            if(enemy.name.Equals("Raven(Clone)")){
+                int r = Random.Range(1,2);
+                if(r==1)
+                    enemy.transform.position += new Vector3(0,0.84f,0);
+            }
             enemy.SetActive(true);
 
             float randomDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
