@@ -20,6 +20,6 @@ public class Cactus : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = randomSprite;
 
         Vector2 spriteSize = randomSprite.bounds.size;
-        GetComponent<BoxCollider2D>().size = spriteSize;
+        GetComponent<BoxCollider2D>().size = spriteSize - new Vector2(0, spriteSize.y/2);
     }
 }

@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 
 
 
-public class SceneManager : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     private const string ORIGINAL_GAME = "OriginalGame";
 
     public void PlayGame() 
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(ORIGINAL_GAME);
+        SceneManager.LoadScene(ORIGINAL_GAME);
     }
 
     public void QuitGame()

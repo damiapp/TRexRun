@@ -14,11 +14,11 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        LoadEnemys();
+        LoadEnemies();
         StartCoroutine(SpawnEnemy());
     }
 
-    private void LoadEnemys()
+    private void LoadEnemies()
     {
         enemyPools = new List<GameObject>[enemyPrefabs.Length];
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -46,12 +46,13 @@ public class SpawnManager : MonoBehaviour
             
             enemy.transform.position = GetComponent<Transform>().transform.position;
             if(enemy.name.Equals("Raven(Clone)")){
-                int r = Random.Range(1,2);
+                int r = Random.Range(1,3);
                 if(r==1)
                     enemy.transform.position += new Vector3(0,0.84f,0);
+                if(r==2)
+                    enemy.transform.position += new Vector3(0, 1.21f, 0);
             }
             enemy.SetActive(true);
-
             float randomDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
             yield return new WaitForSeconds(randomDelay);
         }

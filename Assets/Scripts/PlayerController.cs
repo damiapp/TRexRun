@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public bool playerIsAlive;
     public float jumpForce;
+    public SoundManager SoundManager;
 
     private bool grounded;
     private bool ducking;
     private bool jumping;
     private float originalColliderHeight;
+    private float originalGravityScale;
     private Animator animator;
     private Rigidbody2D myBody;
     private BoxCollider2D boxCollider;
@@ -25,18 +27,18 @@ public class PlayerController : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderHeight = boxCollider.size.y;
+        originalGravityScale = myBody.gravityScale;
         animator = GetComponent<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            //Dead sound
+            SoundManager.PlayDeathSound();
             playerIsAlive = false;
         }
         if(collision.CompareTag("Ground"))
         {
-            Debug.Log("Ground");
             grounded = true;
             jumping = false;
         }
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && grounded && !ducking) {
             jumping = true;
             grounded = false;
-            //Jump sound
+            SoundManager.PlayJumpSound();
         }
         ducking = Input.GetKey(KeyCode.DownArrow);
         UpdateAnimations();   
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+       
         myBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         jumping = false;
     }
@@ -86,10 +89,12 @@ public class PlayerController : MonoBehaviour
     private void Duck()
     {  
         boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight / 2f);
+        myBody.gravityScale = originalGravityScale*10;
     }
     private void Normal()
     {  
         boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight);
+        myBody.gravityScale = originalGravityScale;
     }
 
     private void Dead()
