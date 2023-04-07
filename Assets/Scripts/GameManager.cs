@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
             score += scoreIncreaseRate;
-            if(score == 400){
+            if(score == 700){
                 dayChangeManager.ChangeDayToNight();
             } 
             UpdateScoreText();
