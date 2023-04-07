@@ -7,7 +7,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip deathSound;
     public AudioClip checkPointSound;
+    public AudioClip fartSound;
     public AudioSource audioSource;
+    
 
     public void PlayJumpSound()
     {
@@ -20,5 +22,8 @@ public class SoundManager : MonoBehaviour
     public void PlayCheckPointSound()
     {
         audioSource.PlayOneShot(checkPointSound);
+    }
+    public void PlayFartSound(){
+        audioSource.PlayOneShot(fartSound);
     }
 }

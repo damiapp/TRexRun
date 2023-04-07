@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public bool playerIsAlive;
     public float jumpForce;
     public SoundManager SoundManager;
-
     private bool grounded;
     private bool ducking;
     private bool jumping;

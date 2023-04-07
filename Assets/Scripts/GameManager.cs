@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    private const string ORIGINAL_GAME = "OriginalGame";
+    
     public GameObject ScoreBoard;
     public GameObject Player;
     public GameObject PlayAgain;
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private int highScore;
     private int scoreIncreaseRate;
     private float speedIncrease;
+    private const string ORIGINAL_GAME = "OriginalGame";
+    private const string UPGRADED_GAME = "UpgradedGame";
 
     private void Awake()
     {
@@ -114,7 +116,10 @@ public class GameManager : MonoBehaviour
     private void Replay(){
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)) {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(ORIGINAL_GAME);
+            if(SceneManager.GetActiveScene().name == ORIGINAL_GAME)
+                SceneManager.LoadScene(ORIGINAL_GAME);
+            else if(SceneManager.GetActiveScene().name == UPGRADED_GAME)
+                SceneManager.LoadScene(UPGRADED_GAME);
         }
     }
 
