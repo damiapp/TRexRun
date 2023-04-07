@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour
             
             enemy.transform.position = GetComponent<Transform>().transform.position;
             if(enemy.name.Equals("Raven(Clone)")){
-                int r = Random.Range(1,3);
+                int r = Random.Range(1,4);
                 if(r==1)
                     enemy.transform.position += new Vector3(0,0.84f,0);
                 if(r==2)

@@ -9,10 +9,12 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     private const string ORIGINAL_GAME = "OriginalGame";
+    public PlayerData playerData;
 
     public void PlayGame() 
     {
         SceneManager.LoadScene(ORIGINAL_GAME);
+        playerData.highScore = 0;
     }
 
     public void QuitGame()

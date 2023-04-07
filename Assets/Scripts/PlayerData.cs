@@ -10,6 +10,6 @@ public class PlayerData : ScriptableObject
 
     public void SetSpeed() 
     {
-        speed = 3;
+        speed = 4;
     }
 }

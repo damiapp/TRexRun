@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject PlayAgain;
     public GameObject groundObject;
+    public DayChangeManager dayChangeManager;
     public SpawnManager spawnManager;
     public PlayerData PlayerData;
     public SoundManager SoundManager;
@@ -48,13 +49,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        
         Death();
     }
 
     IEnumerator IncreaseScore()
     {
         while (true)
-        {
+        {   
             yield return new WaitForSeconds(0.05f/speedIncrease);
             if (score % 100 == 0 && score!=0)
             {
@@ -69,6 +71,9 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
             score += scoreIncreaseRate;
+            if(score == 400){
+                dayChangeManager.ChangeDayToNight();
+            } 
             UpdateScoreText();
         }
     }
