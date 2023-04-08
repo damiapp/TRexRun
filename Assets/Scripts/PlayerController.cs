@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D myBody;
     private BoxCollider2D boxCollider;
-
+    private const int MaxFuel = 100;
 
     private void Start()
     {
@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
         {
             grounded = true;
             jumping = false;
+        }
+        if(collision.CompareTag("CanOBeans")) 
+        {
+            GetComponent<JetPack>().SetJetFuel(MaxFuel);
         }
     }
 
@@ -67,9 +71,6 @@ public class PlayerController : MonoBehaviour
         if(!ducking && grounded){
             Normal();
         }
-        if(!playerIsAlive){
-            Dead();
-        }
     }
 
 
@@ -94,11 +95,6 @@ public class PlayerController : MonoBehaviour
     {  
         boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight);
         myBody.gravityScale = originalGravityScale;
-    }
-
-    private void Dead()
-    {  
-        //Death impl...
     }
 
     private void UpdateAnimations()

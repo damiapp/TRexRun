@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class CanOBeans : MonoBehaviour
 {
-    public JetPack jetPack;
-    
-    private void OnTriggerEnter2D(Collider2D collsion) {
-        if(collsion.CompareTag("Player")){
-            jetPack.Refuel();
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Destroy(gameObject);
         }
     }
-
-    
 }

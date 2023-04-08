@@ -17,7 +17,7 @@ public class JetPack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && slider.value>0){
+        if (Input.GetKeyDown(KeyCode.F) && slider.value>0 && playerController.playerIsAlive){
             myBody.AddForce(new Vector2(0f, playerController.jumpForce/2f), ForceMode2D.Impulse);
             SetJetFuel(slider.value-5f);
             soundManager.PlayFartSound();

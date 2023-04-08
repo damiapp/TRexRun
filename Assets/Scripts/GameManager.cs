@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         PlayerData.SetSpeed();
         if (PlayerData.highScore > 0) 
         { 
@@ -51,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Escape))
+            SceneManager.LoadScene("MainMenu");
         Death();
     }
 
